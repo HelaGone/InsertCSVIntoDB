@@ -11,12 +11,6 @@ DEFINE('DB_HOST', '127.0.0.1');
 DEFINE('DB_NAME', 'tests_db');
 
 
-// PRODUCTION
-// DEFINE('DB_USER', 'dbdart_master');
-// DEFINE('DB_PSWD', 'fc8u&EAk%or1UVHYmf*IH');
-// DEFINE('DB_HOST', 'localhost');
-// DEFINE('DB_NAME', 'dbdart_ntcoronamapa');
-
 $dbconn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
 mysqli_set_charset($dbconn,'utf8');
 if(!$dbconn){
@@ -26,12 +20,16 @@ if(!$dbconn){
 
   $fileName = "200427COVID19MEXICO.csv";
 
-  $query = <<<eof
-    LOAD DATA INFILE '$fileName'
-     INTO TABLE cov_data
-     FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
-     LINES TERMINATED BY '\n'
-eof;
+//   $query = <<<eof
+//     LOAD DATA INFILE '$fileName'
+//      INTO TABLE cov_data
+//      FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
+//      LINES TERMINATED BY '\n'
+// eof;
+
+/*FECHA_ACTUALIZACION, ID_REGISTRO, ORIGEN, SECTOR, ENTIDAD_UM, SEXO, ENTIDAD_NAC, ENTIDAD_RES, MUNICIPIO_RES, TIPO_PACIENTE, FECHA_INGRESO, FECHA_SINTOMAS, FECHA_DEF, INTUBADO, NEUMONIA, EDAD, NACIONALIDAD, EMBARAZO, HABLA_LENGUA_INDIG, DIABETES, EPOC, ASMA, INMUSUPR, HIPERTENSION, OTRA_COM, CARDIOVASCULAR, OBESIDAD, RENAL_CRONICA, TABAQUISMO, OTRO_CASO, RESULTADO, MIGRANTE, PAIS_NACIONALIDAD, PAIS_ORIGEN, UCI*/
+
+$query = "TRUNCATE TABLE cov_data";
 
 if(!($result = mysqli_query($dbconn, $query))){
     die("Error!");
